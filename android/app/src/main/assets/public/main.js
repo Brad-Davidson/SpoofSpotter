@@ -49,6 +49,10 @@ const routes = [
         redirectTo: 'home',
         pathMatch: 'full'
     },
+    {
+        path: 'setting',
+        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_setting_setting_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/setting/setting.module */ 6749)).then(m => m.SettingPageModule)
+    },
 ];
 let AppRoutingModule = class AppRoutingModule {
 };

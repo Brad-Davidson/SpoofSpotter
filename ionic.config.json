@@ -1,0 +1,7 @@
+{
+  "name": "SpoofSpotter",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

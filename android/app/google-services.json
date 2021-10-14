@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "959020482708",
+    "project_id": "testapp-a9878",
+    "storage_bucket": "testapp-a9878.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:959020482708:android:3a5a3bc8a4078730fbb481",
+        "android_client_info": {
+          "package_name": "com.farreled.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "959020482708-uhumg76g2faji52o9ouslktdnba9cb2v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0874X_YCFvNtFzO9xRdWIX3ObnR96OK8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "959020482708-uhumg76g2faji52o9ouslktdnba9cb2v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

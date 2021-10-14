@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-servies'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -37,6 +38,16 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation project(':capacitor-cordova-android-plugins')
+    implementation platform('com.google.firebase:firebase-bom:28.4.2')
+    //JAVA FIREBASE
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-firestore'
+    //KOTLIN FIREBASE
+    //implementation 'com.google.firebase:firebase-analytics-ktx'
+    //implementation 'com.google.firebase:firebase-auth-ktx'
+    //implementation 'com.google.firebase:firebase-firestore-ktx'
+
 }
 
 apply from: 'capacitor.build.gradle'

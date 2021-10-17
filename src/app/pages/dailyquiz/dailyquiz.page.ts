@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class DailyquizPage implements OnInit {
 
   constructor() { }
-
+  public currentStreak: string = "3";
   ngOnInit() {
   }
 

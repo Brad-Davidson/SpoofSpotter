@@ -1,9 +1,35 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>newsfeed</ion-title>
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      News Feed
+    </ion-title>
+    <!-- Hamburger -->
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-label class="ion-padding-top ion-padding-bottom"><p>Use the swipe function to determine if the news headline is real or fake!</p></ion-label>
+  <ion-item-sliding>
+    <ion-item>
+      <ion-card>
+    <ion-card-header>
+      <ion-card-title>News Headline</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-label><h3>This is a news headline</h3></ion-label>
+    </ion-card-content>
+  </ion-card>
+  </ion-item>
+  <ion-item-options side="start">
+    <ion-item-option>Real</ion-item-option>
+  </ion-item-options>
+  <ion-item-options side="end">
+    <ion-item-option>Fake</ion-item-option>
+  </ion-item-options>
+</ion-item-sliding>
+  
 
 </ion-content>

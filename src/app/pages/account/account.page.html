@@ -1,9 +1,76 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>account</ion-title>
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      Account
+    </ion-title>
+    <!-- Hamburger -->
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card>
+    <img class="ion-justify-content-center" src="../../../assets/AccountIcon.PNG">
+    <ion-card-header>
+      <ion-card-title>My Account</ion-card-title>
+    </ion-card-header>
 
+    <ion-card-content>
+      <ion-button>Settings</ion-button>
+      <ion-button>Add Friend</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list>
+    <ion-list-header>
+      Leaderboard
+    </ion-list-header>
+    <ion-item>
+      <ion-label>
+        <h2>Friend 1</h2>
+        <h3>12341</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <h2>Friend 2</h2>
+        <h3>4131</h3>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-list-header>
+      Friend List
+    </ion-list-header>
+    <ion-item>
+      <ion-label>
+        <h2>Friend 1</h2>
+      </ion-label>
+      <ion-button>Block</ion-button>
+      <ion-button>Remove</ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <h2>Friend 2</h2>
+      </ion-label>
+      <ion-button>Block</ion-button>
+      <ion-button>Remove</ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <h2>Friend 3</h2>
+      </ion-label>
+      <ion-button>Block</ion-button>
+      <ion-button>Remove</ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <h2>Friend 4</h2>
+      </ion-label>
+      <ion-button>Block</ion-button>
+        <ion-button>Remove</ion-button>
+    </ion-item>
+  </ion-list>
 </ion-content>

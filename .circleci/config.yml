@@ -1,32 +1,6 @@
 jobs:
-        build:
-            working_directory: ~/SpoofSPotter
-            docker:
-                - image: circleci/node:10-browsers
-            steps:
-                - checkout
-                - run:
-                    name: Show current branch
-                    command: echo ${CIRCLE_BRANCH}
-                # Restore local dependencies from cache
-                - restore_cache:
-                    keys:
-                    - v1-dependencies-{{ checksum "package-lock.json" }}
-                    - v1-dependencies-
-                # Install project dependencies
-                - run:
-                    name: Install local dependencies
-                    command: npm install
-                # Cache local dependencies if they don't exist
-                - save_cache:
-                    key: v1-dependencies-{{ checksum "package-lock.json" }}
-                    paths:
-                        - node_modules
-                - run:
-                    name: building
-                    command: npm run build
         # The test job
-        test:
+        build:
             working_directory: ~/SpoofSpotter
             docker:
                 - image: circleci/node:10-browsers

@@ -2,7 +2,7 @@
 
     jobs:
         # The test job
-        test:
+        build:
             working_directory: ~/SpoofSpotter
             docker:
                 - image: circleci/node:10-browsers

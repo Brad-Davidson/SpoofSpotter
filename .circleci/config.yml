@@ -1,6 +1,4 @@
-    version: 2
-
-    jobs:
+jobs:
         # The test job
         build:
             working_directory: ~/SpoofSpotter
@@ -27,14 +25,10 @@
                     key: v1-dependencies-{{ checksum "package-lock.json" }}
                     paths:
                         - node_modules
-                # Lint the source code
-                - run:
-                    name: Linting
-                    command: npm run lint
                 # Test the source code
                 - run:
                     name: Testing
-                    command: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+                    command: npm run test
                 # End to End test
                 - run:
                     name: End to End Test

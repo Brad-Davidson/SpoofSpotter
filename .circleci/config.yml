@@ -1,10 +1,10 @@
-    version: 2
+version: 2
 jobs:
-        # The test job
-        build:
-            working_directory: ~/SpoofSpotter
-            docker:
-                - image: circleci/node:10-browsers
+    # The test job
+    test:
+        working_directory: ~/SpoofSpotter
+        docker:
+            - image: circleci/node:10-browsers
         steps:
             # Checkout the code from the branch into the working_directory
             - checkout

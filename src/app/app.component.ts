@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 
 @Component({
   selector: 'app-root',

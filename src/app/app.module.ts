@@ -9,16 +9,19 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import {AngularFirestoreModule} from '@angular/fire/compat/firestore'
 import { environment } from '../environments/environment';
 import { AuthenticationService } from './services/authentication.service';
+import { NewsFeedService } from './services/news-feed.service';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, 
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, AuthenticationService],
+    AngularFireAuthModule,
+    AngularFirestoreModule],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, AuthenticationService, NewsFeedService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

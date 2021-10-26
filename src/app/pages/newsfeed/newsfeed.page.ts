@@ -11,7 +11,7 @@ export class NewsfeedPage implements OnInit {
   constructor(private newsSvc: NewsFeedService) { }
 
   ngOnInit() {
-    this.newsSvc.GetRandomNewsFeed().subscribe(result =>{
+    this.newsSvc.GetAllDocuments().subscribe(result =>{
       console.log(result);
     })
   }

@@ -9,12 +9,7 @@ export class NewsFeedService {
 
   constructor(private db: AngularFirestore, private auth: AngularFireAuth) { }
 
-  GetRandomNewsFeed(){
-    this.auth.authState.subscribe(user =>{
-        console.log(user.displayName);
-        
-      });
-      return this.db.collection('NewsFeed').valueChanges();
-      
+  GetAllDocuments(){
+    return this.db.collection('NewsFeeds').valueChanges();
   }
 }

@@ -1,8 +1,10 @@
 import { JsonPipe } from '@angular/common';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
+import { User } from '../interfaces/IUser';
 
 
 @Injectable({
@@ -15,7 +17,8 @@ export class AuthenticationService {
   constructor(
     public fireAuth: AngularFireAuth,
     public router: Router,
-    public ngZone: NgZone
+    public ngZone: NgZone,
+    public fireStore: AngularFirestore
   ) { 
     this.fireAuth.authState.subscribe(user =>{
       if(user){
@@ -34,9 +37,30 @@ export class AuthenticationService {
     return this.fireAuth.signInWithEmailAndPassword(email, password);
   }
 
+  RegisterUser(email, password){
+    return this.fireAuth.createUserWithEmailAndPassword(email, password);
+  }
+  CreateUserDoc(user){
+    return this.fireStore.collection('Users').add(user);
+  }
+  UpdateUserDoc(user, userID){
+    return this.fireStore.doc(`Users/${userID}`).update({UserID: userID, PrimaryEmail: user.PrimaryEmail});
+  }
+
+  PasswordRecover(passwordResetEmail){
+    return this.fireAuth.sendPasswordResetEmail(passwordResetEmail).then(() =>{
+      window.alert("Password reset email has been sent");
+    });
+  }
+
   get isLoggedIn(): boolean{
     const user = JSON.parse(localStorage.getItem('user'));
     return (user !== null) ? true: false;
+  }
+
+  get isEmailVerified(): boolean{
+    const user = JSON.parse(localStorage.getItem('user'));
+    return (user.emailVerified !== false);
   }
   
   GoogleAuth() {
@@ -52,5 +76,27 @@ export class AuthenticationService {
         alert("signed in");
       })
     });
+  }
+
+  SetUserData(user){
+    const userRef: AngularFirestoreDocument<any> = this.fireStore.doc(`users/${user.UserID}`);
+    const userData: User = {
+      UserID: user.UserID,
+      UserName: user.UserName,
+      PrimaryEmail: user.PrimaryEmail,
+      FirstName: user.FirstName,
+      LastName: user.UserName,
+      Points: 0,
+      Streak: 0,
+      DateCreated: user.DateCreated,
+      IsActive: user.IsActive
+    }
+  }
+
+  SignOut(){
+    return this.fireAuth.signOut().then(() =>{
+      localStorage.removeItem('user');
+      this.router.navigate(['login']);
+    })
   }
 }

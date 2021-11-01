@@ -89,22 +89,41 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
   Guess(newsfeed, guessReal){
     let index = this.newsList.indexOf(newsfeed) as number;
     let card = this.cards.toArray()[index];
-    if(newsfeed.IsFake && !guessReal){
-      card.nativeElement.style.transition = '.5s ease-out';
-      card.nativeElement.style.transform = `translateX(-${
-        +this.platform.width() * 2
-      }px)`;
-      alert("correct");
+    //they hit "real"
+    if(guessReal){
+      //they get it right
+      if(!newsfeed.IsFake){
+        card.nativeElement.style.transition = '.5s ease-out';
+        card.nativeElement.style.transform = `translateX(${
+          +this.platform.width() * 2
+        }px)`;
+        alert("correct");
+      }
+      else{
+        card.nativeElement.style.transition = '.5s ease-out';
+        card.nativeElement.style.transform = `translateX(-${
+          +this.platform.width() * 2
+        }px)`;
+        alert("WRONG")
+      }
     }
-    else if(!newsfeed.IsFake && guessReal){
-      card.nativeElement.style.transition = '.5s ease-out';
-      card.nativeElement.style.transform = `translateX(${
-        +this.platform.width() * 2
-      }px)`;
-      alert("correct");
-    }
+    //they hit "fake"
     else{
-      alert("wrong");
+      //they get it right
+      if(newsfeed.IsFake){
+        card.nativeElement.style.transition = '.5s ease-out';
+        card.nativeElement.style.transform = `translateX(${
+          +this.platform.width() * 2
+        }px)`;
+        alert("correct");
+      }
+      else{
+        card.nativeElement.style.transition = '.5s ease-out';
+        card.nativeElement.style.transform = `translateX(-${
+          +this.platform.width() * 2
+        }px)`;
+        alert("WRONG")
+      }
     }
   }
 

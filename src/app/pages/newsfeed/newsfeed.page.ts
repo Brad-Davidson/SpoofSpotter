@@ -9,12 +9,13 @@ import { NewsFeedService } from '../../services/news-feed.service';
   styleUrls: ['./newsfeed.page.scss'],
 })
 export class NewsfeedPage implements OnInit, AfterViewInit{
+
+  //This retrieves every card on the html template, assume every card is a question
   @ViewChildren(IonCard, {read: ElementRef}) cards: QueryList<ElementRef>;
   constructor(private newsSvc: NewsFeedService, private gestureCtrl: GestureController, private platform: Platform) { }
 
   //This is initialized as empty first so that it doesn't break the onload functions
   private newsList = []  as NewsFeed[];
-  private longPressActive = false;
 
   ngOnInit(){
     this.newsSvc.GetAllDocuments().subscribe(result =>{
@@ -34,10 +35,11 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
   useSwipe(cardArray){
     for(let i = 0; i < cardArray.length; i++){
       const card = cardArray[i];
-      console.log('card: ', card);
       const gesture = this.gestureCtrl.create({
+
         el: card.nativeElement,
         gestureName: 'swipe',
+
         onStart: ev => {
         },
         onMove: ev => {
@@ -51,6 +53,8 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
             card.nativeElement.style.transform = `translateX(${
               +this.platform.width() * 2
             }px) rotate(${ev.deltaX / 2}deg)`;
+
+            //check whether the answer is correct
             if(!this.newsList[i].IsFake){
               alert("correct!")
             }
@@ -63,6 +67,8 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
             card.nativeElement.style.transform = `translateX(-${
               +this.platform.width() * 2
             }px) rotate(${ev.deltaX / 2}deg)`;
+
+            //check for whether the answer is correct
             if(this.newsList[i].IsFake){
               alert("correct!")
             }
@@ -79,6 +85,7 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
     }
   }
 
+  //Code from https://github.com/mallajay/Ionic-5-Swiper-Gestures (A demo project)
   setCardColor(x, element) {
     let color = "";
     const abs = Math.abs(x);

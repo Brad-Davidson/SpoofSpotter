@@ -55,7 +55,6 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
   useSwipe(cardArray){
     for(let i = 0; i < cardArray.length; i++){
       const card = cardArray[i];
-      console.log('card: ', card);
       const gesture = this.gestureCtrl.create({
         el: card.nativeElement,
         gestureName: 'swipe',
@@ -108,16 +107,15 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
       //they get it right
       if(!newsfeed.IsFake){
         card.nativeElement.style.transition = '.5s ease-out';
-        card.nativeElement.style.transform = `translateX(${
-          +this.platform.width() * 2
-        }px)`;
+        // card.nativeElement.style.transform = `translateX(${
+        //   +this.platform.width() * 2
+        // }px)`;
+        card.nativeElement.style.visibility = 'hidden'
         this.showAlertCorrect();
       }
       else{
         card.nativeElement.style.transition = '.5s ease-out';
-        card.nativeElement.style.transform = `translateX(-${
-          +this.platform.width() * 2
-        }px)`;
+        card.nativeElement.style.visibility = 'hidden'
         this.showAlertWrong();
       }
     }
@@ -126,16 +124,15 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
       //they get it right
       if(newsfeed.IsFake){
         card.nativeElement.style.transition = '.5s ease-out';
-        card.nativeElement.style.transform = `translateX(${
-          +this.platform.width() * 2
-        }px)`;
+        // card.nativeElement.style.transform = `translateX(${
+        //   +this.platform.width() * 2
+        // }px)`;
+        card.nativeElement.style.visibility = 'hidden'
         this.showAlertCorrect();
       }
       else{
         card.nativeElement.style.transition = '.5s ease-out';
-        card.nativeElement.style.transform = `translateX(-${
-          +this.platform.width() * 2
-        }px)`;
+        card.nativeElement.style.visibility = 'hidden'
         this.showAlertWrong();
       }
     }

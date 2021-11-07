@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ContentChildren, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { GestureController, IonCard, Platform } from '@ionic/angular';
+import { AlertController, GestureController, IonCard, Platform } from '@ionic/angular';
 import { NewsFeed } from '../../interfaces/INewsFeed';
 import { NewsFeedService } from '../../services/news-feed.service';
 
@@ -9,14 +9,34 @@ import { NewsFeedService } from '../../services/news-feed.service';
   styleUrls: ['./newsfeed.page.scss'],
 })
 export class NewsfeedPage implements OnInit, AfterViewInit{
-
-  //This retrieves every card on the html template, assume every card is a question
   @ViewChildren(IonCard, {read: ElementRef}) cards: QueryList<ElementRef>;
-  constructor(private newsSvc: NewsFeedService, private gestureCtrl: GestureController, private platform: Platform) { }
+  constructor(private newsSvc: NewsFeedService, private gestureCtrl: GestureController, private platform: Platform, private alertController:AlertController) { }
 
   //This is initialized as empty first so that it doesn't break the onload functions
   private newsList = []  as NewsFeed[];
+  private longPressActive = false;
 
+  async showAlertCorrect(){
+   
+    await this.alertController.create({
+      header: 'Correct',
+      
+      message: 'Great Job!',
+      buttons:['Next']
+    
+    }).then(res=> res.present());
+  }
+
+  async showAlertWrong(){
+   
+    await this.alertController.create({
+      header: 'Wrong',
+     
+      message: 'Try again!',
+      buttons:['Next']
+    
+    }).then(res=> res.present());
+  }
   ngOnInit(){
     this.newsSvc.GetAllDocuments().subscribe(result =>{
       this.newsList = result as NewsFeed[];
@@ -35,11 +55,10 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
   useSwipe(cardArray){
     for(let i = 0; i < cardArray.length; i++){
       const card = cardArray[i];
+      console.log('card: ', card);
       const gesture = this.gestureCtrl.create({
-
         el: card.nativeElement,
         gestureName: 'swipe',
-
         onStart: ev => {
         },
         onMove: ev => {
@@ -53,13 +72,11 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
             card.nativeElement.style.transform = `translateX(${
               +this.platform.width() * 2
             }px) rotate(${ev.deltaX / 2}deg)`;
-
-            //check whether the answer is correct
             if(!this.newsList[i].IsFake){
-              alert("correct!")
+              this.showAlertCorrect()
             }
             else{
-              alert("wrong");
+              this.showAlertWrong();
             }
           }
           //swipe right
@@ -67,14 +84,11 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
             card.nativeElement.style.transform = `translateX(-${
               +this.platform.width() * 2
             }px) rotate(${ev.deltaX / 2}deg)`;
-
-            //check for whether the answer is correct
             if(this.newsList[i].IsFake){
-              alert("correct!")
-              
+              this.showAlertCorrect()
             }
             else{
-              alert("wrong")
+              this.showAlertWrong()
             }
           }
           else{
@@ -97,14 +111,14 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
         card.nativeElement.style.transform = `translateX(${
           +this.platform.width() * 2
         }px)`;
-        alert("correct");
+        this.showAlertCorrect();
       }
       else{
         card.nativeElement.style.transition = '.5s ease-out';
         card.nativeElement.style.transform = `translateX(-${
           +this.platform.width() * 2
         }px)`;
-        alert("WRONG")
+        this.showAlertWrong();
       }
     }
     //they hit "fake"
@@ -115,19 +129,18 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
         card.nativeElement.style.transform = `translateX(${
           +this.platform.width() * 2
         }px)`;
-        alert("correct");
+        this.showAlertCorrect();
       }
       else{
         card.nativeElement.style.transition = '.5s ease-out';
         card.nativeElement.style.transform = `translateX(-${
           +this.platform.width() * 2
         }px)`;
-        alert("WRONG")
+        this.showAlertWrong();
       }
     }
   }
 
-  //Code from https://github.com/mallajay/Ionic-5-Swiper-Gestures (A demo project)
   setCardColor(x, element) {
     let color = "";
     const abs = Math.abs(x);

@@ -24,19 +24,19 @@
     <ion-radio-group [(ngModel)]="selectedIndex">
       <div *ngIf="quizHeadlines.length > 0">
       <ion-item>
-        <ion-label>{{quizHeadlines[0].NewsHeadline}}</ion-label>
+        <ion-label text-wrap>{{quizHeadlines[0].NewsHeadline}}</ion-label>
         <ion-radio slot="start" color="primary" value="0"></ion-radio>
       </ion-item>
       <ion-item>
-        <ion-label>{{quizHeadlines[1].NewsHeadline}}</ion-label>
+        <ion-label text-wrap >{{quizHeadlines[1].NewsHeadline}}</ion-label>
         <ion-radio slot="start" color="primary" value="1"></ion-radio>
       </ion-item>
       <ion-item>
-        <ion-label>{{quizHeadlines[2].NewsHeadline}}</ion-label>
+        <ion-label text-wrap>{{quizHeadlines[2].NewsHeadline}}</ion-label>
         <ion-radio slot="start" color="primary" value="2"></ion-radio>
       </ion-item>
       <ion-item>
-        <ion-label>{{quizHeadlines[3].NewsHeadline}}</ion-label>
+        <ion-label text-wrap >{{quizHeadlines[3].NewsHeadline}}</ion-label>
         <ion-radio slot="start" color="primary" value="3"></ion-radio>
       </ion-item>
     </div>

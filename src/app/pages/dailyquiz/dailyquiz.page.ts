@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { AlertController } from '@ionic/angular';
 import { NewsFeed } from 'src/app/interfaces/INewsFeed';
 import { NewsFeedService } from 'src/app/services/news-feed.service';
 
@@ -9,11 +10,33 @@ import { NewsFeedService } from 'src/app/services/news-feed.service';
 })
 export class DailyquizPage implements OnInit {
 
-  constructor(public newsSvc: NewsFeedService) { }
+  constructor(public newsSvc: NewsFeedService, private alertController:AlertController) { }
   public currentStreak: string = "3";
 
   public quizHeadlines = [] as NewsFeed[];
   public selectedIndex;
+
+  async showAlertCorrect(){
+   
+    await this.alertController.create({
+      header: 'Correct',
+      
+      message: 'Great Job!',
+      buttons:['Next']
+    
+    }).then(res=> res.present());
+  }
+
+  async showAlertWrong(){
+   
+    await this.alertController.create({
+      header: 'Wrong',
+     
+      message: 'Try again!',
+      buttons:['Next']
+    
+    }).then(res=> res.present());
+  }
   ngOnInit() {
       this.newsSvc.GetAllDocuments().subscribe(results =>{
         let newsHeadlines = results as NewsFeed[];
@@ -35,10 +58,10 @@ export class DailyquizPage implements OnInit {
     //check to see if any quiz headlines is selected
     if(this.selectedIndex){
       if(this.quizHeadlines[this.selectedIndex].IsFake){
-        alert('Correct, you rock!');
+        this.showAlertCorrect();
       }
       else{
-        alert('Sorry, that is not correct');
+        this.showAlertWrong();
       }
     }
     else{

@@ -40,6 +40,7 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
   ngOnInit(){
     this.newsSvc.GetAllDocuments().subscribe(result =>{
       this.newsList = result as NewsFeed[];
+      this.newsList = this.newsList.sort(() => 0.5 - Math.random())
     });
   }
   ngAfterViewInit() {

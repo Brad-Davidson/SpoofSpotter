@@ -12,6 +12,9 @@ export class RegistrationPage implements OnInit {
 
   public email: string;
   public password: string;
+  public firstName: string;
+  public lastName: string;
+  public userName: string;
 
   constructor(public authSvc: AuthenticationService
     ,public router: Router) { } 
@@ -19,10 +22,26 @@ export class RegistrationPage implements OnInit {
   ngOnInit() {
   }
 
-  signUp(email, password){
-    this.authSvc.RegisterUser(email, password).then(res =>{
-      this.authSvc.CreateUserDoc({PrimaryEmail: email} as User).then(results =>{
-        this.authSvc.UpdateUserDoc({PrimaryEmail: email} as User, results.id).then(() =>{
+  signUp(){
+    this.authSvc.RegisterUser(this.email, this.password).then(res =>{
+      this.authSvc.CreateUserDoc({
+        PrimaryEmail: this.email,
+        FirstName: this.firstName,
+        LastName: this.lastName,
+        UserName: this.userName,
+        IsActive: true,
+        Points: 0,
+        Streak: 0
+      } as User).then(results =>{
+        this.authSvc.UpdateUserDoc({
+          PrimaryEmail: this.email,
+          FirstName: this.firstName,
+          LastName: this.lastName,
+          UserName: this.userName,
+          IsActive: true,
+          Points: 0,
+          Streak: 0
+        } as User, results.id).then(() =>{
           console.log('success');
         })
         this.router.navigate(['login']);

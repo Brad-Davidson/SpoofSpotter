@@ -7,5 +7,5 @@ export interface User{
     Points: number;
     Streak: number;
     DateCreated: string;
-    IsActive: false;
+    IsActive: boolean;
 }

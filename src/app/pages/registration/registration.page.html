@@ -1,9 +1,12 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      Register user
+    </ion-title>
+    <!-- Hamburger -->
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Register User</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -19,9 +22,24 @@
       <ion-input type="password" name="password" [(ngModel)]="password" required></ion-input>
     </ion-item>
 
+    <ion-item lines="full">
+      <ion-label position="floating">First Name</ion-label>
+      <ion-input type="firstName" name="firstName" [(ngModel)]="firstName" required></ion-input>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Last Name</ion-label>
+      <ion-input type="lastName" name="lastName" [(ngModel)]="lastName" required></ion-input>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Username</ion-label>
+      <ion-input type="userName" name="userName" [(ngModel)]="userName" required></ion-input>
+    </ion-item>
+
     <ion-row>
       <ion-col> 
-      <ion-button type="submit" (click)="signUp(email, password)" expand="block">Register</ion-button>
+      <ion-button type="submit" (click)="signUp()" expand="block">Register</ion-button>
       </ion-col>
     </ion-row>
   </form>

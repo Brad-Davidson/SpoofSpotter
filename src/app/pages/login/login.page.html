@@ -1,9 +1,12 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      Login
+    </ion-title>
+    <!-- Hamburger -->
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Sign in User</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -25,7 +28,7 @@
     </ion-row>
 
       <form>
-        <ion-row>
+        <!-- <ion-row>
           <ion-col> 
             <ion-button 
              type="submit" 
@@ -35,13 +38,14 @@
                Login with Google
             </ion-button>
           </ion-col>
-        </ion-row>
+        </ion-row> -->
         <ion-row>
           <ion-col>
             <ion-button
             type="button"
             color="primary"
-            [routerLink]="['/registration']">
+            [routerLink]="['/registration']"
+            expand="block">
             Sign up
             </ion-button>
           </ion-col>

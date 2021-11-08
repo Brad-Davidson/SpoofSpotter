@@ -1,12 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { User } from '../interfaces/IUser';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit{
+  public user = {} as User;
+  constructor(public authSvc: AuthenticationService) {}
 
-  constructor() {}
+  ngOnInit(): void {
+    let cookieUser = JSON.parse(localStorage.getItem('user'));
+    this.authSvc.GetUserByEmail(cookieUser.email).subscribe(user =>{
+      if(user.length > 0){
+        this.user = user[0] as User;
+      }
+    });
+
+  }
 
 }

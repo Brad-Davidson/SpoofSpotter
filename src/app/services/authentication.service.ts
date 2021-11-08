@@ -78,6 +78,10 @@ export class AuthenticationService {
     });
   }
 
+  GetUserByEmail(email){
+    return this.fireStore.collection("Users", ref => ref.where("PrimaryEmail", "==", email).limit(1)).valueChanges();
+  }
+
   SetUserData(user){
     const userRef: AngularFirestoreDocument<any> = this.fireStore.doc(`users/${user.UserID}`);
     const userData: User = {

@@ -13,13 +13,12 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding-top ion-padding-bottom">
   <ion-card>
-    <img class="ion-justify-content-center" src="../../../assets/AccountIcon.PNG">
-    <ion-card-header>
-      <ion-card-title>My Account</ion-card-title>
-    </ion-card-header>
-
+    <ion-card-content class="profilePic">
+        <img src="../../../assets/icon/Profile-Icon.png" > 
+    </ion-card-content>
+    
     <ion-card-content>
       <ion-item>
         <ion-label>First Name: {{user.FirstName}}</ion-label>
@@ -33,13 +32,53 @@
       <ion-item>
         <ion-label>Email: {{user.PrimaryEmail}}</ion-label>
       </ion-item>
-      <ion-button>Settings</ion-button>
-      <ion-button>Add Friend</ion-button>
+      <ion-item class ="center">
+        <ion-button class="center">Edit Profile</ion-button>
+      </ion-item>
     </ion-card-content>
   </ion-card>
-
+  <br>
+  <br>
+  <ion-card>
+    <ion-list>
+      <ion-list-header>
+        Friend List
+      </ion-list-header>
+      <ion-item>
+        <ion-label>
+          <h2>Friend 1</h2>
+        </ion-label>
+        <ion-button>Block</ion-button>
+        <ion-button>Remove</ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <h2>Friend 2</h2>
+        </ion-label>
+        <ion-button>Block</ion-button>
+        <ion-button>Remove</ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <h2>Friend 3</h2>
+        </ion-label>
+        <ion-button>Block</ion-button>
+        <ion-button>Remove</ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <h2>Friend 4</h2>
+        </ion-label>
+        <ion-button>Block</ion-button>
+          <ion-button>Remove</ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+  <br>
+  <br>
+<ion-card class="ion-padding-bottom">
   <ion-list>
-    <ion-list-header>
+    <ion-list-header >
       Leaderboard
     </ion-list-header>
     <ion-item>
@@ -55,37 +94,6 @@
       </ion-label>
     </ion-item>
   </ion-list>
-  <ion-list>
-    <ion-list-header>
-      Friend List
-    </ion-list-header>
-    <ion-item>
-      <ion-label>
-        <h2>Friend 1</h2>
-      </ion-label>
-      <ion-button>Block</ion-button>
-      <ion-button>Remove</ion-button>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        <h2>Friend 2</h2>
-      </ion-label>
-      <ion-button>Block</ion-button>
-      <ion-button>Remove</ion-button>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        <h2>Friend 3</h2>
-      </ion-label>
-      <ion-button>Block</ion-button>
-      <ion-button>Remove</ion-button>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        <h2>Friend 4</h2>
-      </ion-label>
-      <ion-button>Block</ion-button>
-        <ion-button>Remove</ion-button>
-    </ion-item>
-  </ion-list>
+</ion-card>
+
 </ion-content>

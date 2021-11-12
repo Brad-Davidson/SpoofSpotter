@@ -14,11 +14,13 @@ export class TrainingPage implements OnInit {
 
   ngOnInit() {
     let cookieUser = JSON.parse(localStorage.getItem('user'));
+    if(cookieUser){
     this.authSvc.GetUserByEmail(cookieUser.email).subscribe(user =>{
       if(user.length > 0){
         this.user = user[0] as User;
       }
     });
+  }
   }
 
 }

@@ -7,10 +7,51 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-icon slot="icon-only" name="person"></ion-icon>{{user.UserName}}
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+<div class="bar-header">
+  <h1 class="title">Training</h1>
+</div>
+<ion-item>
+  <ion-label text-wrap>The vast majority of fake or misleading news can be debunked with ease. Through careful examination and critical thinking, it becomes simple to identify fake sources or stories.</ion-label>
+</ion-item>
+<ion-card button (click)="isSourceCardCollapsed = !isSourceCardCollapsed">
+  <ion-card-header>
+    <ion-card-title>Verify the source of the article</ion-card-title>
+  </ion-card-header>
+  <ion-card-content [hidden]="!isSourceCardCollapsed">
+    <ion-item>
+      <ion-label text-wrap>One common tactic among those who publish and spread fake news is to imitate a legitimate source in the hopes that readers will not notice. A notable example of this is ABC News, whose actual URL is “abcnews.go.com”. A major imitation site at “abcnews.com.co” published a large number of articles and many people fell for the hoax. These can be difficult to spot at a glance, which is why it is important to take a deeper look before taking a story at face value.</ion-label>
+    </ion-item>
+  </ion-card-content>
+</ion-card>
+<ion-card button (click)="isArticleCardCollapsed = !isArticleCardCollapsed">
+  <ion-card-header>
+    <ion-card-title>Read the whole article</ion-card-title>
+  </ion-card-header>
+  <ion-card-content [hidden]="!isArticleCardCollapsed">
+    <ion-item>
+      <ion-label text-wrap>Some headlines may appear to be legitimate, but upon reading the article attached they turn out to be satire. They may reveal themselves by including absurd details or referencing other stories that are also false.</ion-label>
+    </ion-item>
+  </ion-card-content>
+</ion-card>
+<ion-card button (click)="isAuthorCardCollapsed = !isAuthorCardCollapsed">
+  <ion-card-header>
+    <ion-card-title>Research the author</ion-card-title>
+  </ion-card-header>
+  <ion-card-content [hidden]="!isAuthorCardCollapsed">
+    <ion-item>
+      <ion-label text-wrap>Look into who the author of the article is. See what description the website itself gives them and look elsewhere online for more information about them. Possible signs of something being off include absurd names, unreasonable accomplishments listed, and no information about the author being available outside of the article itself.</ion-label>
+    </ion-item>
+  </ion-card-content>
+</ion-card>
+</ion-content>
+<!-- <ion-content>
 <ion-card>
   <ion-card-header>
     <ion-card-title color="primary">Uh Oh</ion-card-title>
@@ -25,5 +66,4 @@
     </p></ion-label>
     <ion-button color="secondary">Additional Resources</ion-button>
   </ion-card-content>
-</ion-card>
-</ion-content>
+</ion-card> -->

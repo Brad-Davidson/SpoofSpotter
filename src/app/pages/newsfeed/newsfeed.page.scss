@@ -1,4 +1,22 @@
-ion-card{
-    height: 360px !important;
-    width: 100% !important;
+.ion_card_content{
+    align-content: center;;
+    text-align: center;
+    
 }
+ion-card{
+    height: 320px !important;
+    width: 90% !important;
+    align-content: center;
+    
+}
+ion-label{
+    color: black;
+    
+}
+ion-button{
+    width: 40%;
+    -webkit-box-shadow: -4px 4px 15px 0px rgba(0,0,0,0.48);
+    -moz-box-shadow: -4px 4px 15px 0px rgba(0,0,0,0.48);
+    box-shadow: -4px 4px 15px 0px rgba(0,0,0,0.48);
+}
+

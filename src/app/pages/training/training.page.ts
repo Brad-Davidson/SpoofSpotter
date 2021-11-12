@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Browser } from '@capacitor/browser';
 import { User } from 'src/app/interfaces/IUser';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
@@ -21,6 +22,9 @@ export class TrainingPage implements OnInit {
       }
     });
   }
-  }
+}
 
+  async OpenBrowser(url){
+    await Browser.open({url: url});
+  }
 }

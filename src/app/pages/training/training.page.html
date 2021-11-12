@@ -50,6 +50,55 @@
     </ion-item>
   </ion-card-content>
 </ion-card>
+<ion-card button (click)="isSourcesCitedCardCollapsed = !isSourcesCitedCardCollapsed">
+  <ion-card-header>
+    <ion-card-title>Check any sources cited</ion-card-title>
+  </ion-card-header>
+  <ion-card-content [hidden]="!isSourcesCitedCardCollapsed">
+    <ion-item>
+      <ion-label text-wrap>Many fake stories will include cited sources that seem real at a glance. However, upon looking into them further it becomes apparent that they are not. These sources may be a government office or law, another news site, or an individual. One easy way to check the validity of the claims is to look up the source and see if they are real or support the claim being made.</ion-label>
+    </ion-item>
+  </ion-card-content>
+</ion-card>
+<ion-card button (click)="isDateArticleCardCollapsed = !isDateArticleCardCollapsed">
+  <ion-card-header>
+    <ion-card-title>Check the date of the article</ion-card-title>
+  </ion-card-header>
+  <ion-card-content [hidden]="!isDateArticleCardCollapsed">
+    <ion-item>
+      <ion-label text-wrap>It is a common tactic to post a legitimate article that is several months out of date if the issue discusses becomes relevant again. This is done to mislead readers and cause them to think an event occurred due to different causes or in a different context. As a result, it is important to check the date of the article being shared and see how recent it is.</ion-label>
+    </ion-item>
+  </ion-card-content>
+</ion-card>
+<ion-card button (click)="isGrammarCardCollapsed = !isGrammarCardCollapsed">
+  <ion-card-header>
+    <ion-card-title>Look for grammatical mistakes</ion-card-title>
+  </ion-card-header>
+  <ion-card-content [hidden]="!isGrammarCardCollapsed">
+    <ion-item>
+      <ion-label text-wrap>A high number of grammatical errors could mean that the source lacks an editor, something that the vast majority of credible news sources have. It could also mean that the article is part of a disinformation campaign by somebody who does not primarily speak English. These campaigns have been growing in popularity among those who are attempting to spread feelings of division and distrust around elections.</ion-label>
+    </ion-item>
+  </ion-card-content>
+</ion-card>
+<ion-card button (click)="isOurSourcesCardCollapsed = !isOurSourcesCardCollapsed">
+  <ion-card-header>
+    <ion-card-title>Further resources</ion-card-title>
+  </ion-card-header>
+  <ion-card-content [hidden]="!isOurSourcesCardCollapsed">
+    <ion-item>
+      <a class="" href="#" (click)="OpenBrowser('https://www.factcheck.org/2016/11/how-to-spot-fake-news/')">Fact Check</a>
+    </ion-item>
+    <ion-item>
+      <a class="" href="#" (click)="OpenBrowser('https://www.freedomforuminstitute.org/first-amendment-center/primers/fake-news-primer/')">Fake news primer</a>
+    </ion-item>
+    <ion-item>
+      <a class="" href="#" (click)="OpenBrowser('https://guides.library.cornell.edu/evaluate_news/infographic')">Evaluate news</a>
+    </ion-item>
+    <ion-item>
+      <a class="" href="#" (click)="OpenBrowser('https://www.lib.sfu.ca/help/research-assistance/fake-news')">Fake News Research Assistance</a>
+    </ion-item>
+  </ion-card-content>
+</ion-card>
 </ion-content>
 <!-- <ion-content>
 <ion-card>

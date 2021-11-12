@@ -32,8 +32,8 @@ export class DailyquizPage implements OnInit {
     await this.alertController.create({
       header: 'Wrong',
      
-      message: 'Try again!',
-      buttons:['Next']
+      message: 'Try again tomorrow',
+      buttons:['Close']
     
     }).then(res=> res.present());
   }

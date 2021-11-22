@@ -1,5 +1,8 @@
 import { AfterViewInit, Component, ContentChildren, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { AlertController, GestureController, IonCard, Platform } from '@ionic/angular';
+import { User } from 'src/app/interfaces/IUser';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { GlobalService } from 'src/app/services/global.service';
 import { NewsFeed } from '../../interfaces/INewsFeed';
 import { NewsFeedService } from '../../services/news-feed.service';
 
@@ -10,10 +13,12 @@ import { NewsFeedService } from '../../services/news-feed.service';
 })
 export class NewsfeedPage implements OnInit, AfterViewInit{
   @ViewChildren(IonCard, {read: ElementRef}) cards: QueryList<ElementRef>;
-  constructor(private newsSvc: NewsFeedService, private gestureCtrl: GestureController, private platform: Platform, private alertController:AlertController) { }
+  constructor(private newsSvc: NewsFeedService, private gestureCtrl: GestureController, private platform: Platform,
+     private alertController:AlertController, private authSvc: AuthenticationService, public globalSvc: GlobalService) { }
 
   //This is initialized as empty first so that it doesn't break the onload functions
   private newsList = []  as NewsFeed[];
+  public user = {} as User;
   private longPressActive = false;
 
   async showAlertCorrect(){
@@ -42,6 +47,7 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
       this.newsList = result as NewsFeed[];
       this.newsList = this.newsList.sort(() => 0.5 - Math.random())
     });
+    this.user = this.globalSvc.getLoggedInUser;
   }
   ngAfterViewInit() {
     this.cards.changes.subscribe(cardArray =>{
@@ -74,6 +80,11 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
             }px) rotate(${ev.deltaX / 2}deg)`;
             if(!this.newsList[i].IsFake){
               this.showAlertCorrect()
+              if(this.user && this.user.UserID){
+                //this is where we would add to their points
+                this.user.Points += 100;
+                this.authSvc.UpdateUserDoc(this.user, this.user.UserID);
+              }
             }
             else{
               this.showAlertWrong();
@@ -85,7 +96,13 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
               +this.platform.width() * 2
             }px) rotate(${ev.deltaX / 2}deg)`;
             if(this.newsList[i].IsFake){
-              this.showAlertCorrect()
+              this.showAlertCorrect();
+              //check to see if the user is logged in. If they are, update their score.
+              if(this.user && this.user.UserID){
+                //this is where we would add to their points
+                this.user.Points += 100;
+                this.authSvc.UpdateUserDoc(this.user, this.user.UserID);
+              }
             }
             else{
               this.showAlertWrong()
@@ -113,6 +130,11 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
         // }px)`;
         card.nativeElement.style.visibility = 'hidden'
         this.showAlertCorrect();
+        if(this.user && this.user.UserID){
+          //this is where we would add to their points
+          this.user.Points += 100;
+          this.authSvc.UpdateUserDoc(this.user, this.user.UserID);
+        }
       }
       else{
         card.nativeElement.style.transition = '.5s ease-out';
@@ -130,6 +152,11 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
         // }px)`;
         card.nativeElement.style.visibility = 'hidden'
         this.showAlertCorrect();
+        if(this.user && this.user.UserID){
+          //this is where we would add to their points
+          this.user.Points += 100;
+          this.authSvc.UpdateUserDoc(this.user, this.user.UserID);
+        }
       }
       else{
         card.nativeElement.style.transition = '.5s ease-out';

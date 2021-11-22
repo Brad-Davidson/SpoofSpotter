@@ -44,7 +44,7 @@ export class AuthenticationService {
     return this.fireStore.collection('Users').add(user);
   }
   UpdateUserDoc(user, userID){
-    return this.fireStore.doc(`Users/${userID}`).update({UserID: userID, PrimaryEmail: user.PrimaryEmail});
+    return this.fireStore.doc(`Users/${userID}`).update({UserID: userID, PrimaryEmail: user.PrimaryEmail, FirstName: user.FirstName, LastName: user.LastName, Points: user.Points, Streak: user.Streak});
   }
 
   PasswordRecover(passwordResetEmail){
@@ -90,8 +90,8 @@ export class AuthenticationService {
       PrimaryEmail: user.PrimaryEmail,
       FirstName: user.FirstName,
       LastName: user.UserName,
-      Points: 0,
-      Streak: 0,
+      Points: user.Points,
+      Streak: user.Streak,
       DateCreated: user.DateCreated,
       IsActive: user.IsActive
     }

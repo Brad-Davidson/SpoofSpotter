@@ -1,6 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { NewsFeed } from 'src/app/interfaces/INewsFeed';
+import { User } from 'src/app/interfaces/IUser';
+import { GlobalService } from 'src/app/services/global.service';
 import { NewsFeedService } from 'src/app/services/news-feed.service';
 
 @Component({
@@ -10,8 +12,8 @@ import { NewsFeedService } from 'src/app/services/news-feed.service';
 })
 export class DailyquizPage implements OnInit {
 
-  constructor(public newsSvc: NewsFeedService, private alertController:AlertController) { }
-  public currentStreak: string = "3";
+  constructor(public newsSvc: NewsFeedService, private alertController:AlertController, public globalSvc: GlobalService) { }
+  public user = {} as User;
 
   public quizHeadlines = [] as NewsFeed[];
   public selectedIndex;
@@ -40,18 +42,20 @@ export class DailyquizPage implements OnInit {
   ngOnInit() {
       this.newsSvc.GetAllDocuments().subscribe(results =>{
         let newsHeadlines = results as NewsFeed[];
-        let fakeNews = newsHeadlines.filter(x => x.IsFake).sort(() => 0.5 - Math.random());
-        let realNews = newsHeadlines.filter(x => !x.IsFake).sort(() => 0.5 - Math.random());
+        let fakeNews = newsHeadlines.filter(x => x.IsFake).sort(() => 0.5 - Math.random()); //shuffle the fake headlines into a list
+        let realNews = newsHeadlines.filter(x => !x.IsFake).sort(() => 0.5 - Math.random()); //shuffle the real headlines into a list
         
+        //build quiz, 3 real and 1 fake
         this.quizHeadlines.push(realNews.pop());
         this.quizHeadlines.push(realNews.pop());
         this.quizHeadlines.push(realNews.pop());
         this.quizHeadlines.push(fakeNews.pop());
 
+        //shuffel the quiz list so the fake headline is hidden
         this.quizHeadlines.sort(() => 0.5 - Math.random());
         console.log(this.quizHeadlines);
       });
-  
+      this.user = this.globalSvc.getLoggedInUser;
   }
 
   CheckQuiz(){

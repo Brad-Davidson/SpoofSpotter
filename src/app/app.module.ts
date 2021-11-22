@@ -13,6 +13,7 @@ import {AngularFirestoreModule} from '@angular/fire/compat/firestore'
 import { environment } from '../environments/environment';
 import { AuthenticationService } from './services/authentication.service';
 import { NewsFeedService } from './services/news-feed.service';
+import { GlobalService } from './services/global.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +22,7 @@ import { NewsFeedService } from './services/news-feed.service';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, AuthenticationService, NewsFeedService],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, AuthenticationService, NewsFeedService, GlobalService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

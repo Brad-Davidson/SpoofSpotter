@@ -14,4 +14,8 @@ export class NewsFeedService {
     return this.db.collection('NewsFeeds').valueChanges();
   }
 
+  LogAnswerDocument(stat){
+    return this.db.collection('Statistics').add(stat);
+  }
+
 }

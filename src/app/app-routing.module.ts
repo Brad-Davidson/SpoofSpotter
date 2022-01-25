@@ -14,7 +14,8 @@ const routes: Routes = [
   {
     path: 'setting',
     loadChildren: () => import('./pages/setting/setting.module').then( m => m.SettingPageModule)
-  },  {
+  },
+  {
     path: 'account',
     loadChildren: () => import('./pages/account/account.module').then( m => m.AccountPageModule)
   },
@@ -41,6 +42,10 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'statistics',
+    loadChildren: () => import('./pages/statistics/statistics.module').then( m => m.StatisticsPageModule)
   },
 
 

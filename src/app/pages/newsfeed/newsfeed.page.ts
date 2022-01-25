@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ContentChildren, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { AlertController, GestureController, IonCard, Platform } from '@ionic/angular';
+import { Stats } from 'src/app/interfaces/IStats';
 import { User } from 'src/app/interfaces/IUser';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { GlobalService } from 'src/app/services/global.service';
@@ -73,11 +74,12 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
         },
         onEnd: ev => {
           card.nativeElement.style.transition = '.5s ease-out';
-          //swipe left
+          //swipe right
           if(ev.deltaX > 150){
             card.nativeElement.style.transform = `translateX(${
               +this.platform.width() * 2
             }px) rotate(${ev.deltaX / 2}deg)`;
+            
             if(!this.newsList[i].IsFake){
               this.showAlertCorrect()
               if(this.user && this.user.UserID){
@@ -89,8 +91,9 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
             else{
               this.showAlertWrong();
             }
+            this.LogAnswer(this.newsList[i], true);
           }
-          //swipe right
+          //swipe left
           else if(ev.deltaX <  -150){
             card.nativeElement.style.transform = `translateX(-${
               +this.platform.width() * 2
@@ -107,6 +110,7 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
             else{
               this.showAlertWrong()
             }
+            this.LogAnswer(this.newsList[i], false);
           }
           else{
             card.nativeElement.style.transform = '';
@@ -122,6 +126,7 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
     let card = this.cards.toArray()[index];
     //they hit "real"
     if(guessReal){
+      this.LogAnswer(newsfeed, true);
       //they get it right
       if(!newsfeed.IsFake){
         card.nativeElement.style.transition = '.5s ease-out';
@@ -144,6 +149,7 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
     }
     //they hit "fake"
     else{
+      this.LogAnswer(newsfeed, false);
       //they get it right
       if(newsfeed.IsFake){
         card.nativeElement.style.transition = '.5s ease-out';
@@ -191,6 +197,21 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
       hex = "0" + hex;
     }
     return hex;
+  }
+
+  async LogAnswer(newsfeed: NewsFeed, answer: boolean){
+    let stat = {} as Stats;
+    stat.Category = newsfeed.Category;
+    stat.NewsFeedID = newsfeed.HeadlineID;
+    stat.UserAnswer = answer;
+    stat.UserID = (this.user && this.user.UserID) ? this.user.UserID : "Anonymous";
+    stat.DateAdded = new Date().toISOString()
+    stat.IsFake = newsfeed.IsFake;
+    stat.CorrectGuess = (stat.IsFake != stat.UserAnswer);
+
+    this.newsSvc.LogAnswerDocument(stat).then((res) =>{
+      console.log("Answer Logged");
+    });
   }
 
 }

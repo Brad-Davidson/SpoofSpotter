@@ -5,4 +5,5 @@ export interface NewsFeed{
     NewsHeadline: string;
     NewsSource: string;
     QuestionDifficulty: string;
+    HeadlineID: string;
 }

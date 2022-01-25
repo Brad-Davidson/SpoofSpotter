@@ -23,6 +23,11 @@ export class StatisticsPage implements OnInit {
       console.log(this.user.UserID)
       this.userSvc.GetUserStats(this.user.UserID).subscribe(results =>{
         console.log(results);
+      });
+    }
+    else{ //delete this later
+      this.userSvc.GetUserStats("Anonymous").subscribe(results =>{
+        console.log(results);
       })
     }
   }

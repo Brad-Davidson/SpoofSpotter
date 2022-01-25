@@ -22,27 +22,20 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
   public user = {} as User;
   private longPressActive = false;
 
-  async showAlertCorrect(){
+  async showFeedback(newsfeed: NewsFeed, answer: boolean, isCorrect: boolean){
    
     await this.alertController.create({
-      header: 'Correct',
+      header: isCorrect ? 'Correct' : 'Wrong',
       
-      message: 'Great Job!',
+      message: isCorrect ? 'Great Job!' : 'Better luck next time!',
       buttons:['Next']
     
-    }).then(res=> res.present());
+    }).then(res=> {
+      res.present();
+      this.LogAnswer(newsfeed, answer);
+    });
   }
 
-  async showAlertWrong(){
-   
-    await this.alertController.create({
-      header: 'Wrong',
-     
-      message: 'Try again!',
-      buttons:['Next']
-    
-    }).then(res=> res.present());
-  }
   ngOnInit(){
     this.newsSvc.GetAllDocuments().subscribe(result =>{
       this.newsList = result as NewsFeed[];
@@ -81,7 +74,7 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
             }px) rotate(${ev.deltaX / 2}deg)`;
             
             if(!this.newsList[i].IsFake){
-              this.showAlertCorrect()
+              this.showFeedback(this.newsList[i], true, true)
               if(this.user && this.user.UserID){
                 //this is where we would add to their points
                 this.user.Points += 100;
@@ -89,9 +82,9 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
               }
             }
             else{
-              this.showAlertWrong();
+              this.showFeedback(this.newsList[i], true, false);
             }
-            this.LogAnswer(this.newsList[i], true);
+            //this.LogAnswer(this.newsList[i], true);
           }
           //swipe left
           else if(ev.deltaX <  -150){
@@ -99,7 +92,7 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
               +this.platform.width() * 2
             }px) rotate(${ev.deltaX / 2}deg)`;
             if(this.newsList[i].IsFake){
-              this.showAlertCorrect();
+              this.showFeedback(this.newsList[i], false, true);
               //check to see if the user is logged in. If they are, update their score.
               if(this.user && this.user.UserID){
                 //this is where we would add to their points
@@ -108,9 +101,9 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
               }
             }
             else{
-              this.showAlertWrong()
+              this.showFeedback(this.newsList[i], false, false)
             }
-            this.LogAnswer(this.newsList[i], false);
+            //this.LogAnswer(this.newsList[i], false);
           }
           else{
             card.nativeElement.style.transform = '';
@@ -126,7 +119,6 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
     let card = this.cards.toArray()[index];
     //they hit "real"
     if(guessReal){
-      this.LogAnswer(newsfeed, true);
       //they get it right
       if(!newsfeed.IsFake){
         card.nativeElement.style.transition = '.5s ease-out';
@@ -134,7 +126,7 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
         //   +this.platform.width() * 2
         // }px)`;
         card.nativeElement.style.visibility = 'hidden'
-        this.showAlertCorrect();
+        this.showFeedback(newsfeed, true, true);
         if(this.user && this.user.UserID){
           //this is where we would add to their points
           this.user.Points += 100;
@@ -144,12 +136,12 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
       else{
         card.nativeElement.style.transition = '.5s ease-out';
         card.nativeElement.style.visibility = 'hidden'
-        this.showAlertWrong();
+        this.showFeedback(newsfeed, true, false);
       }
     }
     //they hit "fake"
     else{
-      this.LogAnswer(newsfeed, false);
+      //this.LogAnswer(newsfeed, false);
       //they get it right
       if(newsfeed.IsFake){
         card.nativeElement.style.transition = '.5s ease-out';
@@ -157,7 +149,7 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
         //   +this.platform.width() * 2
         // }px)`;
         card.nativeElement.style.visibility = 'hidden'
-        this.showAlertCorrect();
+        this.showFeedback(newsfeed, false, true);
         if(this.user && this.user.UserID){
           //this is where we would add to their points
           this.user.Points += 100;
@@ -167,7 +159,7 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
       else{
         card.nativeElement.style.transition = '.5s ease-out';
         card.nativeElement.style.visibility = 'hidden'
-        this.showAlertWrong();
+        this.showFeedback(newsfeed, false, false);
       }
     }
   }

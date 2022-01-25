@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { User } from 'src/app/interfaces/IUser';
 import { GlobalService } from 'src/app/services/global.service';
 import { AuthenticationService } from '../../services/authentication.service';
@@ -17,13 +18,25 @@ export class LoginPage implements OnInit {
   constructor(
     public authService: AuthenticationService,
     public router: Router,
-    public globalSvc: GlobalService
+    public globalSvc: GlobalService,
+    public alertCtrl: AlertController
   ) { }
 
   ngOnInit() {
     if(this.authService.isLoggedIn){
       this.router.navigate(["home"])
     }
+  }
+
+  async showInvalidCredentials(){
+   
+    await this.alertCtrl.create({
+      header: 'Invalid Credentials',
+      
+      message: 'Please enter a valid email and passwords',
+      buttons:['Okay']
+    
+    }).then(res=> res.present());
   }
 
   logIn(email, password){
@@ -38,6 +51,9 @@ export class LoginPage implements OnInit {
             this.router.navigate(["home"])
           }
         })
+      }).catch((err) =>{
+        this.showInvalidCredentials();
+        this.password = ""; //clear password, not email
       });
   }
 

@@ -21,7 +21,8 @@ import { GlobalService } from './services/global.service';
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, 
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
-    AngularFirestoreModule],
+    AngularFirestoreModule,
+  ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, AuthenticationService, NewsFeedService, GlobalService],
   bootstrap: [AppComponent],
 })

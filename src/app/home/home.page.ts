@@ -3,6 +3,7 @@ import { User } from '../interfaces/IUser';
 import { AuthenticationService } from '../services/authentication.service';
 import { GlobalService } from '../services/global.service';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -10,9 +11,12 @@ import { GlobalService } from '../services/global.service';
 })
 export class HomePage implements OnInit{
   public user = {} as User;
-  constructor(public authSvc: AuthenticationService, public globalSvc: GlobalService) {}
+  constructor(public authSvc: AuthenticationService, public globalSvc: GlobalService) {
+    
+  }
 
   ngOnInit(): void {
+   
     let cookieUser = JSON.parse(localStorage.getItem('user'));
     if(cookieUser){
     this.authSvc.GetUserByEmail(cookieUser.email).subscribe(user =>{
@@ -21,6 +25,8 @@ export class HomePage implements OnInit{
         this.globalSvc.setLoggedInUser(this.user);
       }
     });
+
+
   }
   }
 

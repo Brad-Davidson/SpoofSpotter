@@ -8,6 +8,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-buttons slot="primary">
+      <ion-buttons *ngIf="user && user.UserName" slot="primary"></ion-buttons>
       <ion-icon slot="icon-only" name="person"></ion-icon>{{user.UserName}}
     </ion-buttons>
   </ion-toolbar>
@@ -20,6 +21,15 @@
     </ion-card-header>
     <ion-card-content>
       <canvas #doughnutCanvas style="position: relative; height:20vh; width:40vw"></canvas>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Line Chart
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #lineCanvas style="position: relative; height:20vh; width:40vw"></canvas>
     </ion-card-content>
   </ion-card>
 </ion-content>

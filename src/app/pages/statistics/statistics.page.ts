@@ -6,6 +6,8 @@ import { GlobalService } from 'src/app/services/global.service';
 import { NewsFeedService } from 'src/app/services/news-feed.service';
 import { UserService } from 'src/app/services/user.service';
 import {Chart} from 'chart.js';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { map } from 'highcharts';
 
 
 @Component({
@@ -54,12 +56,15 @@ export class StatisticsPage implements OnInit, AfterViewInit{
         console.log(this.stats);
         this.buildStatMap();
         console.log(this.statMap);
+        this.lineChartMethod();
+        this.doughnutChartMethod();
       })
     }
 
   }
 
   buildStatMap(){
+    this.statMap = new Map<string, number>()
     this.stats.forEach(stat =>{
       if(this.statMap.has(stat.Category)){
         let value = this.statMap.get(stat.Category);

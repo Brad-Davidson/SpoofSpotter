@@ -13,7 +13,9 @@ export class AccountPage implements OnInit {
   constructor(public globalSvc: GlobalService) { }
 
   ngOnInit() {
-    this.user = this.globalSvc.getLoggedInUser;
+    this.globalSvc.user.subscribe(user =>{
+      this.user = user as User;
+    })
   }
 
 }

@@ -35,7 +35,9 @@ export class StatisticsPage implements OnInit, AfterViewInit{
  
   ngOnInit() {
    
-    this.user = this.globalSvc.getLoggedInUser;
+    this.globalSvc.user.subscribe(user =>{
+      this.user = user as User;
+    })
 
     if(this.user && this.user.UserID){
       console.log(this.user.UserID)

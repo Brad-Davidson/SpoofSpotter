@@ -41,7 +41,9 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
       this.newsList = result as NewsFeed[];
       this.newsList = this.newsList.sort(() => 0.5 - Math.random())
     });
-    this.user = this.globalSvc.getLoggedInUser;
+    this.globalSvc.user.subscribe(user =>{
+      this.user = user as User;
+    })
   }
   ngAfterViewInit() {
     this.cards.changes.subscribe(cardArray =>{

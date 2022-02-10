@@ -4,7 +4,9 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
+import { Observable } from 'rxjs';
 import { User } from '../interfaces/IUser';
+import { GlobalService } from './global.service';
 
 
 @Injectable({
@@ -18,7 +20,8 @@ export class AuthenticationService {
     public fireAuth: AngularFireAuth,
     public router: Router,
     public ngZone: NgZone,
-    public fireStore: AngularFirestore
+    public fireStore: AngularFirestore,
+    private globalSvc: GlobalService
   ) { 
     this.fireAuth.authState.subscribe(user =>{
       if(user){
@@ -100,7 +103,7 @@ export class AuthenticationService {
   SignOut(){
     return this.fireAuth.signOut().then(() =>{
       localStorage.removeItem('user');
-      this.router.navigate(['login']);
+      this.globalSvc.setLoggedInUser({} as User);
     })
   }
 }

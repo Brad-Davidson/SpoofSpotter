@@ -17,17 +17,18 @@ export class HomePage implements OnInit{
 
   ngOnInit(): void {
    
-    let cookieUser = JSON.parse(localStorage.getItem('user'));
-    if(cookieUser){
-    this.authSvc.GetUserByEmail(cookieUser.email).subscribe(user =>{
-      if(user.length > 0){
-        this.user = user[0] as User;
-        this.globalSvc.setLoggedInUser(this.user);
+    this.globalSvc.user.subscribe(userResult =>{
+      let cookieUser = JSON.parse(localStorage.getItem('user'));
+      if(cookieUser){
+      this.authSvc.GetUserByEmail(cookieUser.email).subscribe(user =>{
+        if(user.length > 0){
+          this.user = user[0] as User;
+          this.globalSvc.setLoggedInUser(this.user);
+        }
+      });
       }
     });
 
-
-  }
   }
 
 }

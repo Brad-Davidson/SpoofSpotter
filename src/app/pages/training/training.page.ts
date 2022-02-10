@@ -15,7 +15,9 @@ export class TrainingPage implements OnInit {
   constructor(public authSvc: AuthenticationService, public globalSvc: GlobalService) { }
 
   ngOnInit() {
-    this.user = this.globalSvc.getLoggedInUser;
+    this.globalSvc.user.subscribe(user =>{
+      this.user = user as User;
+    })
 }
 
   async OpenBrowser(url){

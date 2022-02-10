@@ -55,7 +55,9 @@ export class DailyquizPage implements OnInit {
         this.quizHeadlines.sort(() => 0.5 - Math.random());
         console.log(this.quizHeadlines);
       });
-      this.user = this.globalSvc.getLoggedInUser;
+      this.globalSvc.user.subscribe(user =>{
+        this.user = user as User;
+      })
   }
 
   CheckQuiz(){

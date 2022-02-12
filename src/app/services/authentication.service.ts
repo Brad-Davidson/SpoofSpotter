@@ -96,7 +96,7 @@ export class AuthenticationService {
       Points: user.Points,
       Streak: user.Streak,
       DateCreated: user.DateCreated,
-      IsActive: user.IsActive
+      IsActive: user.IsActive,
     }
   }
 

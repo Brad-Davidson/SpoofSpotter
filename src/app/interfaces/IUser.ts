@@ -1,3 +1,5 @@
+import { Friend } from "./IFriend";
+
 export interface User{
     UserID: string;
     UserName: string;

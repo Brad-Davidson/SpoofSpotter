@@ -22,16 +22,21 @@ export class AccountPage implements OnInit {
   ngOnInit() {
     this.globalSvc.user.subscribe(user =>{
       this.user = user as User;
+    });
+
+    if(this.user && this.user.UserID){
       this.userSvc.GetLeaderBoard().subscribe(leaderboard =>{
+        console.log(leaderboard)
         this.leaderboard = leaderboard as User[];
       })
-      this.userSvc.GetFriendsList(this.user.UserID).subscribe(friends =>{
-        console.log(friends)
-        this.following = friends as Friend[];
-      })
-    })
+      console.log(this.userSvc.GetFriendsList(this.user.UserID));
+      this.userSvc.GetFriendsList(this.user.UserID).subscribe(followers =>{
+        this.following = followers as Friend[];
+        console.log(this.following)
+      });
+    }
 
-  
+    
   }
 
   OpenPopover(){

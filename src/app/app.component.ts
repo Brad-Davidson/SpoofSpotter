@@ -21,15 +21,16 @@ export class AppComponent implements OnInit{
       if(user.length > 0){
         this.user = user[0] as User;
         this.globalSvc.setLoggedInUser(this.user);
+        console.log("setting logged in user")
       }
       });
     }
 
-    this.globalSvc.user.subscribe(user =>{
-      if(user.UserID){
-        this.user = user;
-      }
-    })
+    // this.globalSvc.user.subscribe(user =>{
+    //   if(user.UserID){
+    //     this.user = user;
+    //   }
+    // })
   }
 
   LogOut(){

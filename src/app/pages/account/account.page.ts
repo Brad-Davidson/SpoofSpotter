@@ -16,16 +16,22 @@ export class AccountPage implements OnInit {
   public user = {} as User;
 
   public following = [] as Friend[]
+  public leaderboard = [] as User[];
   constructor(public globalSvc: GlobalService, private popover: PopoverController, private userSvc: UserService) { }
 
   ngOnInit() {
     this.globalSvc.user.subscribe(user =>{
       this.user = user as User;
+      this.userSvc.GetLeaderBoard().subscribe(leaderboard =>{
+        this.leaderboard = leaderboard as User[];
+      })
       this.userSvc.GetFriendsList(this.user.UserID).subscribe(friends =>{
         console.log(friends)
         this.following = friends as Friend[];
       })
     })
+
+  
   }
 
   OpenPopover(){

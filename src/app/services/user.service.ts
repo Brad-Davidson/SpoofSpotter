@@ -43,4 +43,8 @@ export class UserService {
   GetFriendsList(userID){
     return this.db.collection(`Users/${userID}/Friends`).valueChanges();
   }
+
+  GetLeaderBoard(){
+    return this.db.collection('Users', ref => ref.orderBy('Points', 'desc').limit(5)).valueChanges();
+  }
 }

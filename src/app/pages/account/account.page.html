@@ -42,40 +42,34 @@
   <ion-card>
     <ion-list>
       <ion-list-header>
-        Friend List
+        Following
+        <ion-button expand="block" (click)="OpenPopover()">Add</ion-button>
       </ion-list-header>
-      <ion-item>
+      <ion-item *ngFor="let follower of following">
         <ion-label>
-          <h2>Friend 1</h2>
+          <h2>{{follower.FriendName}}</h2>
         </ion-label>
-        <ion-button>Block</ion-button>
-        <ion-button>Remove</ion-button>
-      </ion-item>
-      <ion-item>
-        <ion-label>
-          <h2>Friend 2</h2>
-        </ion-label>
-        <ion-button>Block</ion-button>
-        <ion-button>Remove</ion-button>
-      </ion-item>
-      <ion-item>
-        <ion-label>
-          <h2>Friend 3</h2>
-        </ion-label>
-        <ion-button>Block</ion-button>
-        <ion-button>Remove</ion-button>
-      </ion-item>
-      <ion-item>
-        <ion-label>
-          <h2>Friend 4</h2>
-        </ion-label>
-        <ion-button>Block</ion-button>
-          <ion-button>Remove</ion-button>
+        <ion-button (click)="RemoveFriend(follower)">Remove</ion-button>
       </ion-item>
     </ion-list>
   </ion-card>
   <br>
   <br>
+  <!-- <ion-card>
+    <ion-list>
+      <ion-list-header>
+        Followers
+      </ion-list-header>
+      <ion-item>
+        <ion-label>
+          <h2>Friend 1</h2>
+        </ion-label>
+        <ion-button>Remove</ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+  <br>
+  <br> -->
 <ion-card class="ion-padding-bottom">
   <ion-list>
     <ion-list-header >

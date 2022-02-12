@@ -14,6 +14,9 @@ import { environment } from '../environments/environment';
 import { AuthenticationService } from './services/authentication.service';
 import { NewsFeedService } from './services/news-feed.service';
 import { GlobalService } from './services/global.service';
+import { AddFriendPopoverPage } from './pages/popups/add-friend-popover/add-friend-popover.page';
+import { AddFriendPopoverPageModule } from './pages/popups/add-friend-popover/add-friend-popover.module';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +25,7 @@ import { GlobalService } from './services/global.service';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    AddFriendPopoverPageModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, AuthenticationService, NewsFeedService, GlobalService],
   bootstrap: [AppComponent],

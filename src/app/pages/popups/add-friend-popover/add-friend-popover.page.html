@@ -1,0 +1,7 @@
+<ion-content padding>
+  <ion-grid>
+    <ion-row><ion-col>Please enter the username of the person you would like to follow:</ion-col></ion-row>
+    <ion-row><ion-col><ion-input [(ngModel)]="username" placeholder="Enter Username"></ion-input></ion-col></ion-row>
+    <ion-row><ion-col><ion-button color="primary" (click)="AddFollower()">Add</ion-button></ion-col><ion-col><ion-button color="secondary" (click)="ClosePopover()">Close</ion-button></ion-col></ion-row>
+  </ion-grid> 
+</ion-content> 

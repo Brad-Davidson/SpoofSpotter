@@ -5,6 +5,8 @@ import { User } from 'src/app/interfaces/IUser';
 import { GlobalService } from 'src/app/services/global.service';
 import { NewsFeedService } from 'src/app/services/news-feed.service';
 
+import { SplashScreen } from '@capacitor/splash-screen';
+
 @Component({
   selector: 'app-dailyquiz',
   templateUrl: './dailyquiz.page.html',

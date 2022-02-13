@@ -23,10 +23,10 @@ export class StatisticsPage implements OnInit, AfterViewInit{
 
   public user = {} as User;
   @ViewChild('doughnutCanvas') private doughnutCanvas: ElementRef;
-  @ViewChild('lineCanvas') private lineCanvas: ElementRef;
+  @ViewChild('barCanvas') private barCanvas: ElementRef;
   public stats = [] as Stats[];
   doughnutChart: Chart;
-  lineChart: Chart;
+  barChart: Chart;
   public labels = [] as string[];
   public values = [] as number[];
   public statMap = new Map<string, number>()
@@ -47,7 +47,7 @@ export class StatisticsPage implements OnInit, AfterViewInit{
         console.log(this.stats);
         this.buildStatMap();
         console.log(this.statMap);
-        this.lineChartMethod();
+        this.barChartMethod();
         this.doughnutChartMethod();
       });
     }
@@ -58,7 +58,7 @@ export class StatisticsPage implements OnInit, AfterViewInit{
         console.log(this.stats);
         this.buildStatMap();
         console.log(this.statMap);
-        this.lineChartMethod();
+        this.barChartMethod();
         this.doughnutChartMethod();
       })
     }
@@ -78,41 +78,50 @@ export class StatisticsPage implements OnInit, AfterViewInit{
       }
     });
     
-        this.doughnutChart.update();
-      this.lineChart.update();
+        
     
   }
 
-  lineChartMethod(){
+  barChartMethod(){
     
-    this.lineChart = new Chart(this.lineCanvas.nativeElement, {
-      type: 'line',
+    this.barChart = new Chart(this.barCanvas.nativeElement, {
+      type: 'bar',
       data: {
+        label: "Categories",
         labels: [...this.statMap.keys()],
         datasets: [
-          {
-            label: 'Total Questions',
-            fill: false,
-            lineTension: 2.0,
-            backgroundColor: 'rgba(75,192,192,0.4)',
-            borderColor: 'rgba(75,192,192,1)',
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderColor: 'rgba(75,192,192,1)',
-            pointBackgroundColor: '#fff',
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-            pointHoverBorderColor: 'rgba(220,220,220,1)',
-            pointHoverBorderWidth: 2,
-            pointRadius: 1,
-            pointHitRadius: 10,
+          {    
+            label: "# of Incorrect Guesses",
             data: [...this.statMap.values()],
-            spanGaps: false,
+            backgroundColor: ['rgba(255, 99, 132, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(201, 203, 207, 0.2)'],
+            borderColor: ['rgb(255, 99, 132)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 205, 86)',
+            'rgb(75, 192, 192)',
+            'rgb(54, 162, 235)',
+            'rgb(153, 102, 255)',
+            'rgb(201, 203, 207)'],
+            borderWidth: 1,
+          
           }
         ]
+      }, options: {
+        scales:{
+          yAxes:[
+            
+            {label:"# of Incorrect Guesses",
+              ticks:{
+                beginAtZero: true
+              }
+            }
+          ]
+        }
       }
     });
   }
@@ -124,23 +133,24 @@ export class StatisticsPage implements OnInit, AfterViewInit{
       type: 'doughnut',
       data: {
         labels: [...this.statMap.keys()],
-        datasets: [{
-          label: '# of Incorrect guesses',
+        datasets: [{  
           data: [...this.statMap.values()],
            backgroundColor: [
-           'rgba(255, 159, 64, 0.2)',
             'rgba(255, 99, 132, 0.2)',
-             'rgba(54, 162, 235, 0.2)',
-             'rgba(255, 206, 86, 0.2)',
-             'rgba(75, 192, 192, 0.2)'
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(201, 203, 207, 0.2)'
            ],
-           hoverBackgroundColor: [
-        '#FFCE56',
-             '#FF6384',
-             '#36A2EB',
-            '#FFCE56',
-             '#FF6384'
-           ]
+            borderColor: ['rgb(255, 99, 132)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 205, 86)',
+            'rgb(75, 192, 192)',
+            'rgb(54, 162, 235)',
+            'rgb(153, 102, 255)',
+            'rgb(201, 203, 207)'],
         }]
       }
     });
@@ -149,8 +159,16 @@ export class StatisticsPage implements OnInit, AfterViewInit{
 
   ngAfterViewInit(): void {      
   if(this.isDataLoaded = true){
-    this.lineChartMethod();
-    this.doughnutChartMethod();
+    this.barChartMethod();
+     this.doughnutChartMethod();
+    this.barChart.update();
+    this.doughnutChart.update();
+    
+    
+    
+    
+    
+    
   }
     }
      

@@ -16,11 +16,12 @@ export class AddFriendPopoverPage implements OnInit {
 
   public username = "" as string;
   public user = {} as User;
+  public friends = [] as Friend[];
 
   ngOnInit() {
     this.globalSvc.user.subscribe(user =>{
       this.user = user;
-    })
+    });
   }
   AddFollower(){
     if(this.user.UserID){
@@ -28,16 +29,22 @@ export class AddFriendPopoverPage implements OnInit {
         console.log(results)
         if(results.length > 0){
           let foundUser = results[0] as User;
-          this.userSvc.AddUserFriend(foundUser.UserID, foundUser.UserName, this.user.UserID).then(docID =>{
-            let friend = {} as Friend;
-            friend.DocumentID = docID.id as string;
-            friend.FriendID = foundUser.UserID;
-            friend.FriendName = this.username;
-            this.userSvc.UpdateUserFriend(friend, this.user.UserID).then(finished =>{
-              console.log("friend added");
-              this.popover.dismiss();
-            })
+          this.userSvc.GetFriendsList(this.user.UserID).subscribe(friends =>{
+            this.friends = friends as Friend[];
+            if(this.friends.findIndex((friend) => friend.FriendName === this.username) < 0 ){
+              this.userSvc.AddUserFriend(foundUser.UserID, foundUser.UserName, this.user.UserID).then(docID =>{
+                let friend = {} as Friend;
+                friend.DocumentID = docID.id as string;
+                friend.FriendID = foundUser.UserID;
+                friend.FriendName = this.username;
+                this.userSvc.UpdateUserFriend(friend, this.user.UserID).then(finished =>{
+                  console.log("friend added");
+                  this.popover.dismiss();
+                })
+              })
+            }
           })
+          
         }
       })
     }

@@ -28,6 +28,7 @@
     "@capacitor/keyboard": "1.1.0",
     "@capacitor/splash-screen": "^1.2.2",
     "@capacitor/status-bar": "1.0.3",
+    "@capacitor/storage": "^1.2.4",
     "@ionic/angular": "^5.8.4",
     "@ionic/cli": "^6.17.1",
     "chart.js": "^2.9.4",

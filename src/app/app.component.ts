@@ -14,17 +14,17 @@ export class AppComponent implements OnInit{
   constructor(public authSvc: AuthenticationService, public globalSvc: GlobalService, private router: Router) {}
   private user = {} as User;
   ngOnInit(): void {
-      let cookieUser = JSON.parse(localStorage.getItem('user'));
-    if(cookieUser){
-    this.authSvc.GetUserByEmail(cookieUser.email).subscribe(user =>{
-      console.log(user);
-      if(user.length > 0){
-        this.user = user[0] as User;
-        this.globalSvc.setLoggedInUser(this.user);
-        console.log("setting logged in user")
-      }
-      });
-    }
+    //   let cookieUser = JSON.parse(localStorage.getItem('user'));
+    // if(cookieUser){
+    // this.authSvc.GetUserByEmail(cookieUser.email).subscribe(user =>{
+    //   console.log(user);
+    //   if(user.length > 0){
+    //     this.user = user[0] as User;
+    //     this.globalSvc.setLoggedInUser(this.user);
+    //     console.log("setting logged in user")
+    //   }
+    //   });
+    //}
 
     // this.globalSvc.user.subscribe(user =>{
     //   if(user.UserID){

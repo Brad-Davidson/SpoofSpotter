@@ -24,7 +24,7 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     if(this.authService.isLoggedIn){
-      this.router.navigate(["home"])
+      this.router.navigateByUrl("/")
     }
   }
 
@@ -48,7 +48,7 @@ export class LoginPage implements OnInit {
           if(user.length > 0 && user[0].UserID){
             this.authService.SetUserData(user[0]);
             this.globalSvc.setLoggedInUser(user[0]);
-            this.router.navigate(["home"])
+            this.router.navigateByUrl("/", {replaceUrl: true});
           }
         })
       }).catch((err) =>{

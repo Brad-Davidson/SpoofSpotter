@@ -44,7 +44,7 @@ export class RegistrationPage implements OnInit {
         } as User, results.id).then(() =>{
           console.log('success');
         })
-        this.router.navigate(['login']);
+        this.router.navigateByUrl("/login", {replaceUrl: true});
       }).catch(error =>{
         alert(error.message);
       });

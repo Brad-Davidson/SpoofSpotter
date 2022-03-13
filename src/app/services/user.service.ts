@@ -15,6 +15,10 @@ export class UserService {
     return this.db.collection('Statistics', ref => 
       ref.where('UserID', '==', userID, ).where('CorrectGuess', '==', false)).valueChanges();
   }
+  GetUserStatsIfTrue(userID){
+    return this.db.collection('Statistics', ref => 
+      ref.where('UserID', '==', userID, ).where('CorrectGuess', '==', true)).valueChanges();
+  }
 
   GetUserByUsername(username){
     return this.db.collection('Users', ref => 

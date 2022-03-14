@@ -26,11 +26,11 @@ export class AppComponent implements OnInit{
     //   });
     //}
 
-    // this.globalSvc.user.subscribe(user =>{
-    //   if(user.UserID){
-    //     this.user = user;
-    //   }
-    // })
+    this.globalSvc.user.subscribe(user =>{
+      if(user.UserID){
+        this.user = user;
+      }
+    })
   }
 
   LogOut(){

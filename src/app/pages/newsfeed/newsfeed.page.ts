@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ContentChildren, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Browser } from '@capacitor/browser';
 import { AlertController, GestureController, IonCard, Platform } from '@ionic/angular';
 import { Stats } from 'src/app/interfaces/IStats';
 import { User } from 'src/app/interfaces/IUser';
@@ -25,10 +26,18 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
   async showFeedback(newsfeed: NewsFeed, answer: boolean, isCorrect: boolean){
    
     await this.alertController.create({
-      header: isCorrect ? 'Correct' : 'Wrong',
+      header: isCorrect ? 'Correct'
+       : 'Wrong',
       
-      message: isCorrect ? 'Great Job!' : 'Better luck next time!',
-      buttons:['Next']
+      message: isCorrect ? '<p>Great Job!</p>' 
+      : 'Better luck next time!',
+      buttons:[{
+        text: 'Source',
+        handler: () => {
+          this.OpenBrowser(newsfeed.NewsSource)
+        }
+      }
+        ,'Next']
     
     }).then(res=> {
       res.present();
@@ -51,6 +60,11 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
         this.useSwipe(cardArray.toArray());
       }
     });
+  }
+
+  async OpenBrowser(url){
+    console.log(url);
+    await Browser.open({url: url});
   }
 
 

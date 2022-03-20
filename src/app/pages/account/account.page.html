@@ -14,12 +14,14 @@
 </ion-header>
 
 <ion-content class="ion-padding-top ion-padding-bottom">
+  <div *ngIf="user && user.UserID">
   <ion-card>
     <ion-card-content class="profilePic">
         <img src="../../../assets/icon/Profile-Icon.png" > 
     </ion-card-content>
     
     <ion-card-content *ngIf="user">
+      <div *ngIf="!editing">
       <ion-item>
         <ion-label>First Name: {{user.FirstName}}</ion-label>
       </ion-item>
@@ -33,8 +35,28 @@
         <ion-label>Email: {{user.PrimaryEmail}}</ion-label>
       </ion-item>
       <ion-item class ="center">
-        <ion-button class="center">Edit Profile</ion-button>
+        <ion-button class="center" (click)="editing = !editing">Edit Profile</ion-button>
       </ion-item>
+    </div>
+    <div *ngIf="editing">
+      <ion-item>
+        <ion-label>First Name:</ion-label>
+        <ion-input class="box" type="text" [(ngModel)]="firstname" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>First Name:</ion-label>
+        <ion-input class="box" type="text" [(ngModel)]="lastname" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Username: {{user.UserName}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Email: {{user.PrimaryEmail}}</ion-label>
+      </ion-item>
+      <ion-item class ="center">
+        <ion-button class="center" (click)="EditProfile()">Update Profile</ion-button>
+      </ion-item>
+    </div>
     </ion-card-content>
   </ion-card>
   <br>
@@ -55,21 +77,12 @@
   </ion-card>
   <br>
   <br>
-  <!-- <ion-card>
-    <ion-list>
-      <ion-list-header>
-        Followers
-      </ion-list-header>
-      <ion-item>
-        <ion-label>
-          <h2>Friend 1</h2>
-        </ion-label>
-        <ion-button>Remove</ion-button>
-      </ion-item>
-    </ion-list>
+</div>
+<div *ngIf="!user || !user.UserID">
+  <ion-card>
+    <ion-label>You are not currently logged in</ion-label>
   </ion-card>
-  <br>
-  <br> -->
+</div>
   <ion-card>
     <ion-list>
       <ion-list-header>

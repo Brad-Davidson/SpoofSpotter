@@ -36,6 +36,7 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
         handler: () => {
           this.OpenBrowser(newsfeed.NewsSource)
         }
+        
       }
         ,'Next']
     
@@ -51,6 +52,7 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
       this.newsList = this.newsList.sort(() => 0.5 - Math.random())
     });
     this.globalSvc.user.subscribe(user =>{
+      console.log("Getuser from NewsFeed")
       this.user = user as User;
     })
   }

@@ -63,8 +63,7 @@ export class DailyquizPage implements OnInit {
         let quizDate = new Date(dateStr.date);
   
         let currentDate = new Date();
-  
-        if(quizDate.getDay() == currentDate.getDay()){
+        if(quizDate.toDateString() == currentDate.toDateString()){
           this.showTimerAlert();
           this.router.navigateByUrl('/', {
             replaceUrl: true

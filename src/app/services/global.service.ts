@@ -18,6 +18,7 @@ export class GlobalService {
 
   setLoggedInUser(user: User){
     this._user.next(user);
+    console.log("setLoggedInUser")
   }
 
 }

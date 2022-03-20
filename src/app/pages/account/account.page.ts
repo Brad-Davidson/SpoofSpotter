@@ -17,11 +17,19 @@ export class AccountPage implements OnInit {
 
   public following = [] as Friend[]
   public leaderboard = [] as User[];
-  constructor(public globalSvc: GlobalService, private popover: PopoverController, private userSvc: UserService) { }
+  public editing = false;
+
+  //these are seperated from the rest of the fields so that any updates don't trigger subscriptions right away.
+  public firstname = "";
+  public lastname = "";
+
+  constructor(public globalSvc: GlobalService, private popover: PopoverController, private userSvc: UserService, private authSvc: AuthenticationService) { }
 
   ngOnInit() {
     this.globalSvc.user.subscribe(user =>{
       this.user = user as User;
+      this.firstname = user.FirstName;
+      this.lastname = user.LastName;
     });
 
     if(this.user && this.user.UserID){
@@ -37,6 +45,21 @@ export class AccountPage implements OnInit {
     }
 
     
+  }
+
+  EditProfile(){
+    //flips the switch for editing, updates the html
+    if(this.firstname.length > 0 && this.lastname.length > 0){
+      this.user.FirstName = this.firstname;
+      this.user.LastName = this.lastname;
+      console.log("Updating User");
+      console.log(this.user)
+      this.authSvc.UpdateUserDoc(this.user, this.user.UserID).then(result =>{
+        this.editing = false;
+      })
+    }else{
+      alert("First and Last name required");
+    }
   }
 
   OpenPopover(){

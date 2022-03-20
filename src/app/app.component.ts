@@ -27,6 +27,8 @@ export class AppComponent implements OnInit{
     //}
 
     this.globalSvc.user.subscribe(user =>{
+
+      console.log("Get user on App Component");
       if(user.UserID){
         this.user = user;
       }

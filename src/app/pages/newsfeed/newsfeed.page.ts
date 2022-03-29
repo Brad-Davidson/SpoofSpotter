@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ContentChildren, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Router } from '@angular/router';
 import { Browser } from '@capacitor/browser';
 import { AlertController, GestureController, IonCard, Platform } from '@ionic/angular';
 import { Stats } from 'src/app/interfaces/IStats';
@@ -16,12 +17,14 @@ import { NewsFeedService } from '../../services/news-feed.service';
 export class NewsfeedPage implements OnInit, AfterViewInit{
   @ViewChildren(IonCard, {read: ElementRef}) cards: QueryList<ElementRef>;
   constructor(private newsSvc: NewsFeedService, private gestureCtrl: GestureController, private platform: Platform,
-     private alertController:AlertController, private authSvc: AuthenticationService, public globalSvc: GlobalService) { }
+     private alertController:AlertController, private authSvc: AuthenticationService, public globalSvc: GlobalService,  public router: Router) { }
 
   //This is initialized as empty first so that it doesn't break the onload functions
   private newsList = []  as NewsFeed[];
   public user = {} as User;
   private longPressActive = false;
+
+  private alertMessage = new Map<string, string>();
 
   async showFeedback(newsfeed: NewsFeed, answer: boolean, isCorrect: boolean){
    
@@ -30,15 +33,19 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
        : 'Wrong',
       
       message: isCorrect ? '<p>Great Job!</p>' 
-      : 'Better luck next time!',
+      : '<p>Better luck next time!</p><p>' + (this.alertMessage.has(newsfeed.Category) ? this.alertMessage.get(newsfeed.Category) : 'Please review our training module if you find you need help!') + '</p>',
       buttons:[{
         text: 'Source',
         handler: () => {
           this.OpenBrowser(newsfeed.NewsSource)
         }
         
+      },
+      {text: 'Training',
+      handler: () =>{
+        this.router.navigateByUrl("/training", {replaceUrl: true});
       }
-        ,'Next']
+    },'Next']
     
     }).then(res=> {
       res.present();
@@ -47,6 +54,14 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
   }
 
   ngOnInit(){
+    //initialize the map
+    this.alertMessage.set("Current Events", "Looks like you're having some issues with the Current Events category. There can be a lot of conflicting information when a big event happens, so try to find multiple sources sharing the same story. This is more likely to be legitimate.")
+    this.alertMessage.set("Politics", "Looks like you're having some issues with the Politics category. It can be difficult, but try to keep personal bias out of your judgement with political news.");
+    this.alertMessage.set("Sports", "Looks like you're having some issues with the Sports category. Tom Brady didn't retire after all but that's ok.");
+    this.alertMessage.set("Business", "Looks like you're having some issues with the Business category. If something seems too good to be true, it likely is. Try to use critical thinking and your best judgement with business news.");
+    this.alertMessage.set("Entertainment", "Looks like you're having some issues with the Entertainment category. Celebrities get up to some crazy antics, but try to verify anything that seems too excessive.");
+    this.alertMessage.set("General", " Looks like you're having some issues with the General category. Lots of misinformation can be very convincing, so keep an eye out for things that seem unreasonable or unrealistic.");
+
     this.newsSvc.GetAllDocuments().subscribe(result =>{
       this.newsList = result as NewsFeed[];
       this.newsList = this.newsList.sort(() => 0.5 - Math.random())

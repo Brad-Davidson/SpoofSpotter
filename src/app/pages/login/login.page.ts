@@ -12,7 +12,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 })
 export class LoginPage implements OnInit {
 
-  public email: string = "Test";
+  public email: string = "";
   public password: string = "";
 
   constructor(

@@ -14,13 +14,13 @@
 </ion-header>
 
 <ion-content>
-  <ion-label class="ion-padding-top ion-padding-bottom"><p>Use the swipe function to determine if the news headline is real or fake!</p></ion-label>
+  <ion-label class="ion-padding-top ion-padding-bottom ion-title ion-text-center "><p>Use the swipe function to determine if the news headline is real or fake! </p></ion-label>
   <ion-grid>
     <ion-row>
       <ion-col size="12">
         <ion-card *ngFor="let newsfeed of newsList" [style.position]="'absolute'">
           <ion-card-header>
-            <ion-card-title>Category: {{newsfeed.Category}}</ion-card-title>
+            <ion-card-title class="ion-text-center">{{newsfeed.Category}}</ion-card-title>
           </ion-card-header>
           <ion-card-content>
             <ion-label color="ion-color-primary-contrast">{{newsfeed.NewsHeadline}}</ion-label>

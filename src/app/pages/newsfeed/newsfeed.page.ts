@@ -230,7 +230,7 @@ export class NewsfeedPage implements OnInit, AfterViewInit{
     stat.NewsFeedID = newsfeed.HeadlineID;
     stat.UserAnswer = answer;
     stat.UserID = (this.user && this.user.UserID) ? this.user.UserID : "Anonymous";
-    stat.DateAdded = new Date().toISOString()
+    stat.DateAdded = new Date().toISOString().substring(0, 10);
     stat.IsFake = newsfeed.IsFake;
     stat.CorrectGuess = (stat.IsFake != stat.UserAnswer);
 

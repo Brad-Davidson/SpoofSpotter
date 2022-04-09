@@ -8,6 +8,7 @@ import {Storage} from '@capacitor/storage';
 
 import { SplashScreen } from '@capacitor/splash-screen';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-dailyquiz',
@@ -16,7 +17,7 @@ import { Router } from '@angular/router';
 })
 export class DailyquizPage implements OnInit {
 
-  constructor(public newsSvc: NewsFeedService, private alertController:AlertController, public globalSvc: GlobalService, private router: Router) { }
+  constructor(public newsSvc: NewsFeedService, private authSvc: AuthenticationService, private alertController:AlertController, public globalSvc: GlobalService, private router: Router) { }
   public user = {} as User;
 
   public quizHeadlines = [] as NewsFeed[];
@@ -122,9 +123,20 @@ export class DailyquizPage implements OnInit {
       });
       if(this.quizHeadlines[this.selectedIndex].IsFake){
         this.showAlertCorrect();
+        if(this.user && this.user.UserID){
+          //this is where we would add to their points
+          this.user.Points += 250;
+          this.user.Streak += 1;
+          this.authSvc.UpdateUserDoc(this.user, this.user.UserID);
+        }
       }
       else{
         this.showAlertWrong();
+        if(this.user && this.user.UserID){
+          //this is where we would add to their points
+          this.user.Streak = 0;
+          this.authSvc.UpdateUserDoc(this.user, this.user.UserID);
+        }
       }
       this.router.navigateByUrl('/', {
         replaceUrl: true
